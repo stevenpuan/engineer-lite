@@ -14,8 +14,10 @@ export interface Tenant {
 
 export interface Profile {
   id: string
+  user_id: string
   tenant_id: string
   display_name: string | null
+  email: string | null
   role: 'owner' | 'assistant'
   is_active: boolean
   created_at: string
