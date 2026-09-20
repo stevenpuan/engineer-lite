@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext'
 import {
   LayoutDashboard, Users, FolderKanban, LogOut, Menu, X,
   Shield, Building2, UserCog, ToggleLeft,
+  FileText, Wallet, Receipt, CreditCard,
 } from 'lucide-react'
 
 interface NavItem {
@@ -22,6 +23,10 @@ export function Sidebar() {
     { label: '總覽', to: '/', icon: <LayoutDashboard className="h-5 w-5" /> },
     { label: '客戶管理', to: '/clients', icon: <Users className="h-5 w-5" /> },
     { label: '案件管理', to: '/projects', icon: <FolderKanban className="h-5 w-5" /> },
+    { label: '報價單', to: '/quotes', icon: <FileText className="h-5 w-5" /> },
+    { label: '收款管理', to: '/receivables', icon: <Wallet className="h-5 w-5" /> },
+    { label: '支出管理', to: '/expenses', icon: <Receipt className="h-5 w-5" /> },
+    { label: '應付帳款', to: '/payables', icon: <CreditCard className="h-5 w-5" /> },
   ]
 
   const adminNav: NavItem[] = [
@@ -33,7 +38,7 @@ export function Sidebar() {
   const nav = isPlatformAdmin ? adminNav : tenantNav
 
   function NavLink({ item }: { item: NavItem }) {
-    const active = pathname === item.to
+    const active = item.to === '/' ? pathname === '/' : pathname.startsWith(item.to)
     return (
       <Link
         to={item.to}

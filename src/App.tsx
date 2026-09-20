@@ -8,6 +8,11 @@ import DashboardPage from '@/pages/DashboardPage'
 import ClientsPage from '@/pages/ClientsPage'
 import ProjectsPage from '@/pages/ProjectsPage'
 import ProjectDetailPage from '@/pages/ProjectDetailPage'
+import QuotesPage from '@/pages/QuotesPage'
+import QuoteDetailPage from '@/pages/QuoteDetailPage'
+import ReceivablesPage from '@/pages/ReceivablesPage'
+import ExpensesPage from '@/pages/ExpensesPage'
+import PayablesPage from '@/pages/PayablesPage'
 import TenantsPage from '@/pages/admin/TenantsPage'
 import UsersPage from '@/pages/admin/UsersPage'
 import ModulesPage from '@/pages/admin/ModulesPage'
@@ -34,6 +39,12 @@ export default function App() {
               <Route path="/clients" element={<ClientsPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
               <Route path="/projects/:id" element={<ProjectDetailPage />} />
+              {/* B2: Money modules */}
+              <Route path="/quotes" element={<QuotesPage />} />
+              <Route path="/quotes/:id" element={<QuoteDetailPage />} />
+              <Route path="/receivables" element={<ReceivablesPage />} />
+              <Route path="/expenses" element={<ExpensesPage />} />
+              <Route path="/payables" element={<PayablesPage />} />
               {/* Platform admin pages */}
               <Route path="/admin/tenants" element={<TenantsPage />} />
               <Route path="/admin/users" element={<UsersPage />} />

@@ -10,7 +10,7 @@ import { Plus, Pencil, Trash2, Search } from 'lucide-react'
 import type { Client } from '@/types/database'
 import { toast } from 'sonner'
 
-const emptyForm = { name: '', contact_name: '', contact_phone: '', contact_email: '', address: '', notes: '' }
+const emptyForm = { name: '', contact_name: '', phone: '', email: '', address: '', notes: '' }
 
 export default function ClientsPage() {
   const { data: clients = [], isLoading } = useClients()
@@ -38,8 +38,8 @@ export default function ClientsPage() {
     setForm({
       name: c.name,
       contact_name: c.contact_name ?? '',
-      contact_phone: c.contact_phone ?? '',
-      contact_email: c.contact_email ?? '',
+      phone: c.phone ?? '',
+      email: c.email ?? '',
       address: c.address ?? '',
       notes: c.notes ?? '',
     })
@@ -51,8 +51,8 @@ export default function ClientsPage() {
     const payload = {
       name: form.name,
       contact_name: form.contact_name || null,
-      contact_phone: form.contact_phone || null,
-      contact_email: form.contact_email || null,
+      phone: form.phone || null,
+      email: form.email || null,
       address: form.address || null,
       notes: form.notes || null,
     }
@@ -116,7 +116,7 @@ export default function ClientsPage() {
                   </div>
                 </div>
                 {c.contact_name && <div className="text-sm text-muted-foreground">聯絡人：{c.contact_name}</div>}
-                {c.contact_phone && <div className="text-sm text-muted-foreground">電話：{c.contact_phone}</div>}
+                {c.phone && <div className="text-sm text-muted-foreground">電話：{c.phone}</div>}
               </div>
             ))}
           </div>
@@ -138,8 +138,8 @@ export default function ClientsPage() {
                   <TableRow key={c.id}>
                     <TableCell className="font-medium">{c.name}</TableCell>
                     <TableCell>{c.contact_name}</TableCell>
-                    <TableCell>{c.contact_phone}</TableCell>
-                    <TableCell>{c.contact_email}</TableCell>
+                    <TableCell>{c.phone}</TableCell>
+                    <TableCell>{c.email}</TableCell>
                     <TableCell>
                       <div className="flex gap-1">
                         <Button variant="ghost" size="icon" onClick={() => openEdit(c)}><Pencil className="h-4 w-4" /></Button>
@@ -167,8 +167,8 @@ export default function ClientsPage() {
             <div><Label>名稱 *</Label><Input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} /></div>
             <div><Label>聯絡人</Label><Input value={form.contact_name} onChange={e => setForm({ ...form, contact_name: e.target.value })} /></div>
             <div className="grid grid-cols-2 gap-3">
-              <div><Label>電話</Label><Input value={form.contact_phone} onChange={e => setForm({ ...form, contact_phone: e.target.value })} /></div>
-              <div><Label>Email</Label><Input value={form.contact_email} onChange={e => setForm({ ...form, contact_email: e.target.value })} /></div>
+              <div><Label>電話</Label><Input value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} /></div>
+              <div><Label>Email</Label><Input value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} /></div>
             </div>
             <div><Label>地址</Label><Input value={form.address} onChange={e => setForm({ ...form, address: e.target.value })} /></div>
             <div><Label>備註</Label><Input value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} /></div>
