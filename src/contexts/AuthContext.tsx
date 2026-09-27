@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import type { Session, User } from '@supabase/supabase-js'
-import { supabase } from '@/lib/supabase'
+import { supabase } from '@/integrations/supabase/client'
 import type { Profile } from '@/types/database'
 
 interface AuthState {
@@ -53,7 +53,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         .select('*')
         .eq('user_id', userId)
         .single()
-      setProfile(prof)
+      setProfile(prof as Profile | null)
 
       // Check platform admin
       const { data: admin } = await supabase

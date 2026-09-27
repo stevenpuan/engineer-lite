@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { supabase } from '@/lib/supabase'
+import { supabase } from '@/integrations/supabase/client'
 import type { Payable, Payment } from '@/types/database'
 
 export function usePayables(projectId?: string) {
@@ -45,7 +45,7 @@ export function useCreatePayable() {
       due_date?: string
       notes?: string
     }) => {
-      const { data, error } = await supabase.from('payables').insert(input).select().single()
+      const { data, error } = await supabase.from('payables').insert(input as never).select().single()
       if (error) throw error
       return data
     },
@@ -57,7 +57,7 @@ export function useUpdatePayable() {
   const qc = useQueryClient()
   return useMutation({
     mutationFn: async ({ id, ...input }: Partial<Payable> & { id: string }) => {
-      const { data, error } = await supabase.from('payables').update(input).eq('id', id).select().single()
+      const { data, error } = await supabase.from('payables').update(input as never).eq('id', id).select().single()
       if (error) throw error
       return data
     },
@@ -89,7 +89,7 @@ export function useCreatePayment() {
       reference_no?: string
       notes?: string
     }) => {
-      const { data, error } = await supabase.from('payments').insert(input).select().single()
+      const { data, error } = await supabase.from('payments').insert(input as never).select().single()
       if (error) throw error
       return data
     },

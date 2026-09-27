@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link } from '@tanstack/react-router'
 import { useProject, useUpdateProject } from '@/hooks/useProjects'
 import { useQuotes } from '@/hooks/useQuotes'
 import { useReceivables } from '@/hooks/useReceivables'
@@ -63,7 +63,7 @@ const expenseStatusLabel: Record<string, string> = {
 type Tab = 'info' | 'quotes' | 'receivables' | 'expenses' | 'payables'
 
 export default function ProjectDetailPage() {
-  const { id } = useParams<{ id: string }>()
+  const { id } = useParams({ strict: false }) as { id: string }
   const { data: project, isLoading } = useProject(id)
   const updateProject = useUpdateProject()
   const [tab, setTab] = useState<Tab>('info')
@@ -173,7 +173,7 @@ export default function ProjectDetailPage() {
                     <TableCell className="text-right">${q.total.toLocaleString()}</TableCell>
                     <TableCell><Badge className={quoteStatusStyle[q.status] ?? ''} variant="secondary">{q.status}</Badge></TableCell>
                     <TableCell>
-                      <Link to={`/quotes/${q.id}`}><Button variant="ghost" size="icon"><ExternalLink className="h-4 w-4" /></Button></Link>
+                      <Link to="/quotes/$id" params={{ id: q.id }}><Button variant="ghost" size="icon"><ExternalLink className="h-4 w-4" /></Button></Link>
                     </TableCell>
                   </TableRow>
                 ))}

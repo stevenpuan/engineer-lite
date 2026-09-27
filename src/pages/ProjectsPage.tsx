@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '@tanstack/react-router'
 import { useProjects, useCreateProject, useDeleteProject } from '@/hooks/useProjects'
 import { useClients } from '@/hooks/useClients'
 import { Button } from '@/components/ui/button'
@@ -96,7 +96,7 @@ export default function ProjectsPage() {
             {filtered.map(p => (
               <div key={p.id} className="p-4 space-y-1">
                 <div className="flex items-center justify-between">
-                  <Link to={`/projects/${p.id}`} className="font-medium text-primary hover:underline flex items-center gap-1">
+                  <Link to="/projects/$id" params={{ id: p.id }} className="font-medium text-primary hover:underline flex items-center gap-1">
                     {p.name} <ExternalLink className="h-3 w-3" />
                   </Link>
                   <Badge className={statusColor[p.status] ?? ''} variant="secondary">{p.status}</Badge>
@@ -104,7 +104,7 @@ export default function ProjectsPage() {
                 <div className="text-sm text-muted-foreground">
                   {(p.client as { name: string } | null)?.name ?? '—'}
                 </div>
-                {p.contract_amount != null && <div className="text-sm text-muted-foreground">合約金額：${p.contract_amount.toLocaleString()}</div>}
+                {p.contract_amount != null && <div className="text-sm text-muted-foreground">預算：${p.contract_amount.toLocaleString()}</div>}
               </div>
             ))}
           </div>
@@ -125,7 +125,7 @@ export default function ProjectsPage() {
                 {filtered.map(p => (
                   <TableRow key={p.id}>
                     <TableCell>
-                      <Link to={`/projects/${p.id}`} className="font-medium text-primary hover:underline">
+                      <Link to="/projects/$id" params={{ id: p.id }} className="font-medium text-primary hover:underline">
                         {p.name}
                       </Link>
                     </TableCell>
@@ -170,7 +170,7 @@ export default function ProjectsPage() {
               </Select>
             </div>
             <div><Label>地址</Label><Input value={form.address} onChange={e => setForm({ ...form, address: e.target.value })} /></div>
-            <div><Label>合約金額</Label><Input type="number" value={form.contract_amount} onChange={e => setForm({ ...form, contract_amount: e.target.value })} /></div>
+            <div><Label>預算</Label><Input type="number" value={form.contract_amount} onChange={e => setForm({ ...form, contract_amount: e.target.value })} /></div>
             <div><Label>備註</Label><Input value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} /></div>
             <div className="flex justify-end gap-2">
               <Button variant="outline" onClick={() => setDialogOpen(false)}>取消</Button>

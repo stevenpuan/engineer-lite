@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { supabase } from '@/lib/supabase'
+import { supabase } from '@/integrations/supabase/client'
 import type { TenantListItem, TenantUser, TenantModuleItem } from '@/types/database'
 
 // ── Tenants ──
@@ -62,7 +62,7 @@ export function useAdminTenantUsers(tenantId: string | undefined) {
     queryFn: async () => {
       const { data, error } = await supabase.rpc('pa_tenant_users', { _tenant_id: tenantId! })
       if (error) throw error
-      return data as TenantUser[]
+      return data as unknown as TenantUser[]
     },
   })
 }
@@ -121,7 +121,7 @@ export function useAdminTenantModules(tenantId: string | undefined) {
     queryFn: async () => {
       const { data, error } = await supabase.rpc('pa_tenant_modules', { _tenant_id: tenantId! })
       if (error) throw error
-      return data as TenantModuleItem[]
+      return data as unknown as TenantModuleItem[]
     },
   })
 }

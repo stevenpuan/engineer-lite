@@ -3,7 +3,7 @@ import { useProjects } from '@/hooks/useProjects'
 import { useFinanceSummary } from '@/hooks/useFinanceSummary'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Users, FolderKanban, ArrowRight, TrendingUp, TrendingDown, Wallet } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link } from '@tanstack/react-router'
 import { Badge } from '@/components/ui/badge'
 
 const statusColor: Record<string, string> = {
@@ -25,7 +25,7 @@ export default function DashboardPage() {
   const totalQuoted = financeSummary.reduce((s, f) => s + (f.quote_total ?? 0), 0)
   const totalReceived = financeSummary.reduce((s, f) => s + (f.received_total ?? 0), 0)
   const totalExpenses = financeSummary.reduce((s, f) => s + (f.expense_total ?? 0), 0)
-  const totalPayables = financeSummary.reduce((s, f) => s + ((f.payable_total ?? 0) - (f.paid_total ?? 0)), 0)
+  const totalPayables = financeSummary.reduce((s, f) => s + (f.payable_total ?? 0), 0)
 
   return (
     <div className="space-y-6">
@@ -118,7 +118,7 @@ export default function DashboardPage() {
                 return (
                   <Link
                     key={p.id}
-                    to={`/projects/${p.id}`}
+                    to="/projects/$id" params={{ id: p.id }}
                     className="flex items-center justify-between rounded-lg border p-3 hover:bg-accent/50 transition-colors"
                   >
                     <div>
