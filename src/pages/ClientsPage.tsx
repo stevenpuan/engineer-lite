@@ -55,6 +55,7 @@ export default function ClientsPage() {
       email: form.email || null,
       address: form.address || null,
       notes: form.notes || null,
+      tax_id: editing?.tax_id ?? null,
     }
     try {
       if (editing) {

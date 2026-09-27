@@ -34,7 +34,7 @@ export default function ProjectsPage() {
   const [search, setSearch] = useState('')
   const [form, setForm] = useState({
     name: '', client_id: '', status: '洽談中' as ProjectStatus,
-    address: '', budget: '', notes: '',
+    address: '', contract_amount: '', notes: '',
   })
 
   const filtered = projects.filter(p =>
@@ -49,14 +49,14 @@ export default function ProjectsPage() {
         client_id: form.client_id || null,
         status: form.status,
         address: form.address || null,
-        budget: form.budget ? Number(form.budget) : null,
+        contract_amount: form.contract_amount ? Number(form.contract_amount) : null,
         notes: form.notes || null,
         start_date: null,
         end_date: null,
       })
       toast.success('案件已建立')
       setDialogOpen(false)
-      setForm({ name: '', client_id: '', status: '洽談中', address: '', budget: '', notes: '' })
+      setForm({ name: '', client_id: '', status: '洽談中', address: '', contract_amount: '', notes: '' })
     } catch (err) {
       toast.error(err instanceof Error ? err.message : '建立失敗')
     }
@@ -104,7 +104,7 @@ export default function ProjectsPage() {
                 <div className="text-sm text-muted-foreground">
                   {(p.client as { name: string } | null)?.name ?? '—'}
                 </div>
-                {p.budget != null && <div className="text-sm text-muted-foreground">預算：${p.budget.toLocaleString()}</div>}
+                {p.contract_amount != null && <div className="text-sm text-muted-foreground">合約金額：${p.contract_amount.toLocaleString()}</div>}
               </div>
             ))}
           </div>
@@ -131,7 +131,7 @@ export default function ProjectsPage() {
                     </TableCell>
                     <TableCell>{(p.client as { name: string } | null)?.name ?? '—'}</TableCell>
                     <TableCell><Badge className={statusColor[p.status] ?? ''} variant="secondary">{p.status}</Badge></TableCell>
-                    <TableCell>{p.budget != null ? `$${p.budget.toLocaleString()}` : '—'}</TableCell>
+                    <TableCell>{p.contract_amount != null ? `$${p.contract_amount.toLocaleString()}` : '—'}</TableCell>
                     <TableCell>
                       <Button variant="ghost" size="icon" onClick={() => handleDelete(p.id)}>
                         <Trash2 className="h-4 w-4 text-destructive" />
@@ -170,7 +170,7 @@ export default function ProjectsPage() {
               </Select>
             </div>
             <div><Label>地址</Label><Input value={form.address} onChange={e => setForm({ ...form, address: e.target.value })} /></div>
-            <div><Label>預算</Label><Input type="number" value={form.budget} onChange={e => setForm({ ...form, budget: e.target.value })} /></div>
+            <div><Label>合約金額</Label><Input type="number" value={form.contract_amount} onChange={e => setForm({ ...form, contract_amount: e.target.value })} /></div>
             <div><Label>備註</Label><Input value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} /></div>
             <div className="flex justify-end gap-2">
               <Button variant="outline" onClick={() => setDialogOpen(false)}>取消</Button>
